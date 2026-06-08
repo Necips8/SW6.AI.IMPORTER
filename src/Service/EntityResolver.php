@@ -88,7 +88,7 @@ class EntityResolver
         return $ids;
     }
 
-    public function resolveProperty(array $propertyName, string $value, Context $context): array
+    public function resolveProperty(string $propertyName, string $value, Context $context): array
     {
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('name', $propertyName));

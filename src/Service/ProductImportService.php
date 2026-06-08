@@ -52,10 +52,6 @@ class ProductImportService
 
             $productId = $this->productCreator->createProduct($kiResult, $manufacturerId, $taxId, $categoryIds, $context, $publishImmediately);
 
-            if (!$publishImmediately) {
-                $this->draftManager->markAsDraft($kiResult->getRawData());
-            }
-
             if (empty($kiResult->getDescription())) {
                 $warnings[] = 'No description was generated';
             }

@@ -33,6 +33,8 @@ class OllamaClient
                     'stream' => false,
                     'format' => 'json',
                 ],
+                'timeout' => 300,
+                'max_duration' => 300,
             ]);
 
             $content = $response->toArray();

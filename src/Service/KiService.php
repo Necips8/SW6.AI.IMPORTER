@@ -36,10 +36,8 @@ class KiService
 
     public function getActiveProvider(): string
     {
-        return $this->systemConfigService->get(
-            'SwagAiAssistant.config.aiProvider',
-            self::PROVIDER_OLLAMA
-        );
+        return $this->systemConfigService->get('SwagAiAssistant.config.aiProvider')
+            ?? self::PROVIDER_OLLAMA;
     }
 
     public function getAvailableProviders(): array

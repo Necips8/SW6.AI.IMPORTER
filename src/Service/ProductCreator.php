@@ -41,7 +41,12 @@ class ProductCreator
         $productId = Uuid::randomHex();
         $currencyId = $this->getDefaultCurrencyId($context);
         $currency = $this->currencyRepository->search(new \Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria([$currencyId]), $context)->first();
-        $decimalPrecision = $currency ? $currency->getDecimalPrecision() : 2;
+        $decimalPrecision = 2;
+        if ($currency) {
+            $decimalPrecision = method_exists($currency, 'getDecimalPrecision')
+                ? $currency->getDecimalPrecision()
+                : $currency->getItemRounding()->getDecimals();
+        }
 
         $grossPrice = $kiResult->getPrice();
         $taxRate = $kiResult->getTaxRate() ?? 19.0;
@@ -109,8 +114,17 @@ class ProductCreator
     private function getDefaultCurrencyId(Context $context): string
     {
         $criteria = new \Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria();
+        $criteria->addFilter(new \Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter('factor', 1));
         $criteria->setLimit(1);
 
+        $currency = $this->currencyRepository->search($criteria, $context)->first();
+
+        if ($currency) {
+            return $currency->getId();
+        }
+
+        $criteria = new \Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria();
+        $criteria->setLimit(1);
         $currency = $this->currencyRepository->search($criteria, $context)->first();
 
         return $currency ? $currency->getId() : Uuid::randomHex();
@@ -119,7 +133,6 @@ class ProductCreator
     private function getSalesChannelIds(Context $context): array
     {
         $criteria = new \Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria();
-        $criteria->addAssociation('salesChannels');
 
         $salesChannels = $this->salesChannelRepository->search($criteria, $context);
 
