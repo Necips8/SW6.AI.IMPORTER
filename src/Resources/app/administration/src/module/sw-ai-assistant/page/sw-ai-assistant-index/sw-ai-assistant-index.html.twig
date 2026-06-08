@@ -1,0 +1,108 @@
+{% block sw_ai_assistant_index %}
+<sw-page class="sw-ai-assistant-index">
+    <template #smart-bar-header>
+        <h2>AI Assistant</h2>
+    </template>
+
+    <template #content>
+        <sw-card-view>
+            <sw-card title="Single Product Import" :isLoading="isLoading">
+                <sw-text-field
+                    label="Product Name"
+                    placeholder="e.g. iPhone 15 Pro"
+                    v-model="productName">
+                </sw-text-field>
+
+                <sw-switch-field
+                    label="Publish immediately"
+                    v-model="publishImmediately">
+                </sw-switch-field>
+
+                <sw-button variant="primary"
+                           :disabled="!productName"
+                           @click="onStartImport">
+                    Start AI Generation
+                </sw-button>
+            </sw-card>
+
+            <sw-card title="Batch Import" :isLoading="batchLoading">
+                <sw-textarea-field
+                    label="Product List (JSON)"
+                    placeholder='[{"produktname": "iPad Pro"}, {"produktname": "MacBook Air"}]'
+                    v-model="batchJson">
+                </sw-textarea-field>
+
+                <sw-switch-field
+                    label="Publish immediately"
+                    v-model="batchPublishImmediately">
+                </sw-switch-field>
+
+                <sw-button variant="primary"
+                           :disabled="!batchJson"
+                           @click="onBatchImport">
+                    Start Batch Import
+                </sw-button>
+
+                <sw-card v-if="batchResult" title="Batch Result">
+                    <sw-alert v-if="batchResult.failedCount > 0"
+                              variant="warning"
+                              :title="'{{ batchResult.failedCount }} failed'">
+                    </sw-alert>
+                    <sw-alert v-else variant="success" title="All succeeded">
+                    </sw-alert>
+                    <pre>{{ batchResult }}</pre>
+                </sw-card>
+            </sw-card>
+
+            <sw-card title="Draft Management" :isLoading="draftsLoading">
+                <sw-button variant="primary" @click="onLoadDrafts" :disabled="draftsLoading">
+                    Refresh Drafts
+                </sw-button>
+
+                <sw-button variant="success" @click="onPublishAllDrafts" :disabled="draftsLoading || drafts.length === 0">
+                    Publish All Drafts
+                </sw-button>
+
+                <sw-data-grid v-if="drafts.length > 0"
+                              :dataSource="drafts"
+                              :columns="draftColumns"
+                              :showSelection="false">
+                    <template #actions="{ item }">
+                        <sw-button variant="primary" size="small" @click="onPublishDraft(item.id)">
+                            Publish
+                        </sw-button>
+                        <sw-button variant="danger" size="small" @click="onDeleteDraft(item.id)">
+                            Delete
+                        </sw-button>
+                    </template>
+                </sw-data-grid>
+
+                <sw-empty-state v-else-if="draftsLoaded"
+                                title="No drafts found"
+                                description="Imported products will appear here when saved as draft.">
+                </sw-empty-state>
+            </sw-card>
+
+            <sw-card v-if="result" title="Result">
+                <p><strong>Success!</strong> Product created:</p>
+                <ul>
+                    <li>ID: {{ result.productId }}</li>
+                    <li>SKU: {{ result.productNumber }}</li>
+                    <li>Status: {{ result.status }}</li>
+                </ul>
+                <sw-alert v-if="result.warnings && result.warnings.length > 0"
+                          variant="warning"
+                          title="Warnings">
+                    <ul>
+                        <li v-for="warning in result.warnings">{{ warning }}</li>
+                    </ul>
+                </sw-alert>
+            </sw-card>
+
+            <sw-card v-if="error" title="Error" class="sw-ai-assistant-error">
+                <p style="color: red;">{{ error }}</p>
+            </sw-card>
+        </sw-card-view>
+    </template>
+</sw-page>
+{% endblock %}

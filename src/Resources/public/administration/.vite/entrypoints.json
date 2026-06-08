@@ -1,0 +1,23 @@
+{
+  "base": "/bundles/swagaiassistant/administration/",
+  "entryPoints": {
+    "swag-ai-assistant": {
+      "css": [],
+      "dynamic": [],
+      "js": [
+        "/bundles/swagaiassistant/administration/assets/swag-ai-assistant-CB3Qy-GS.js"
+      ],
+      "legacy": false,
+      "preload": []
+    }
+  },
+  "legacy": false,
+  "metadatas": {},
+  "version": [
+    "7.1.0",
+    7,
+    1,
+    0
+  ],
+  "viteServer": null
+}

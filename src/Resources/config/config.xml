@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+    <card>
+        <title>AI Provider</title>
+
+        <input-field type="single-select">
+            <name>aiProvider</name>
+            <label>AI Provider</label>
+            <label xml:lang="de-DE">KI-Anbieter</label>
+            <defaultValue>ollama</defaultValue>
+            <options>
+                <option>
+                    <id>ollama</id>
+                    <name>Ollama (lokal)</name>
+                </option>
+            </options>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Ollama Settings</title>
+
+        <input-field type="text">
+            <name>ollamaUrl</name>
+            <label>Ollama API URL</label>
+            <label xml:lang="de-DE">Ollama API URL</label>
+            <defaultValue>http://localhost:11434</defaultValue>
+            <helpText>The base URL of your Ollama instance.</helpText>
+            <helpText xml:lang="de-DE">Die Basis-URL deiner Ollama-Instanz.</helpText>
+        </input-field>
+
+        <input-field type="text">
+            <name>ollamaModel</name>
+            <label>Ollama Model</label>
+            <label xml:lang="de-DE">Ollama Modell</label>
+            <defaultValue>llama3</defaultValue>
+            <helpText>The model name to use (e.g., llama3, mistral).</helpText>
+            <helpText xml:lang="de-DE">Der Name des zu verwendenden Modells (z.B. llama3, mistral).</helpText>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Import Settings</title>
+
+        <input-field type="bool">
+            <name>createAsDraft</name>
+            <label>Create products as draft</label>
+            <label xml:lang="de-DE">Produkte als Entwurf anlegen</label>
+            <defaultValue>true</defaultValue>
+            <helpText>When enabled, created products will be saved as inactive drafts.</helpText>
+            <helpText xml:lang="de-DE">Wenn aktiviert, werden Produkte als inaktive Entwürfe gespeichert.</helpText>
+        </input-field>
+
+        <input-field type="int">
+            <name>defaultStock</name>
+            <label>Default stock quantity</label>
+            <label xml:lang="de-DE">Standard-Lagerbestand</label>
+            <defaultValue>10</defaultValue>
+            <helpText>Default stock if AI does not provide a value.</helpText>
+            <helpText xml:lang="de-DE">Standard-Lagerbestand wenn die KI keinen Wert liefert.</helpText>
+        </input-field>
+    </card>
+</config>

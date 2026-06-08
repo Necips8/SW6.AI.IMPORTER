@@ -1,0 +1,28 @@
+{
+  "name": "swag/ai-assistant",
+  "description": "AI-powered product importer using local Ollama instance",
+  "version": "1.0.0",
+  "type": "shopware-platform-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Gemini CLI"
+    }
+  ],
+  "require": {
+    "shopware/core": "*",
+    "shopware/storefront": "*"
+  },
+  "extra": {
+    "shopware-plugin-class": "Swag\\AiAssistant\\SwagAiAssistant",
+    "label": {
+      "de-DE": "KI Assistent",
+      "en-GB": "AI Assistant"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Swag\\AiAssistant\\": "src/"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+services:
+  shopware:
+    image: dockware/dev:latest
+    container_name: aiAssistent
+    ports:
+      - "80:80"     # Apache
+      - "3306:3306" # MySQL
+      - "22:22"     # SSH
+      - "8888:8888" # Watcher
+      - "9900:9900" # PHPMyAdmin
+    volumes:
+      - .:/var/www/html/custom/plugins/aiAssistant
+    environment:
+      - PHP_VERSION=8.2
+      # - XDEBUG_ENABLED=1
