@@ -55,6 +55,7 @@
 
         <service id="Swag\AiAssistant\Controller\AiImportController" public="true">
             <argument type="service" id="Swag\AiAssistant\Service\ProductImportService"/>
+            <argument type="service" id="Swag\AiAssistant\Service\DraftManager"/>
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>

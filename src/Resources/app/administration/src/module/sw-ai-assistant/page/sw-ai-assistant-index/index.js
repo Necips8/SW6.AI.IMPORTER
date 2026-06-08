@@ -5,7 +5,7 @@ const { Component, Mixin } = Shopware;
 Component.register('sw-ai-assistant-index', {
     template,
 
-    inject: ['httpClient', 'loginService'],
+    inject: ['loginService'],
 
     data() {
         return {
@@ -29,6 +29,12 @@ Component.register('sw-ai-assistant-index', {
                 { property: 'createdAt', label: 'Created' },
             ],
         };
+    },
+
+    computed: {
+        httpClient() {
+            return Shopware.Application.getContainer('init').httpClient;
+        },
     },
 
     methods: {

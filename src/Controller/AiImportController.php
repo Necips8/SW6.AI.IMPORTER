@@ -8,11 +8,9 @@ use Swag\AiAssistant\Service\ProductImportService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * @Route(defaults={"_routeScope"={"api"}})
- */
+#[Route(defaults: ['_routeScope' => ['api']])]
 class AiImportController extends AbstractController
 {
     private ProductImportService $importService;
@@ -26,9 +24,7 @@ class AiImportController extends AbstractController
         $this->draftManager = $draftManager;
     }
 
-    /**
-     * @Route("/api/_action/ai-assistant/import", name="api.action.ai_assistant.import", methods={"POST"})
-     */
+    #[Route(path: '/api/_action/ai-assistant/import', name: 'api.action.ai_assistant.import', methods: ['POST'])]
     public function import(Request $request, Context $context): JsonResponse
     {
         $productName = $request->request->get('name');
@@ -57,9 +53,7 @@ class AiImportController extends AbstractController
         ], 500);
     }
 
-    /**
-     * @Route("/api/_action/ai-assistant/import-batch", name="api.action.ai_assistant.import_batch", methods={"POST"})
-     */
+    #[Route(path: '/api/_action/ai-assistant/import-batch', name: 'api.action.ai_assistant.import_batch', methods: ['POST'])]
     public function importBatch(Request $request, Context $context): JsonResponse
     {
         $products = $request->request->all('products');
@@ -80,9 +74,7 @@ class AiImportController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/api/_action/ai-assistant/publish-drafts", name="api.action.ai_assistant.publish_drafts", methods={"POST"})
-     */
+    #[Route(path: '/api/_action/ai-assistant/publish-drafts', name: 'api.action.ai_assistant.publish_drafts', methods: ['POST'])]
     public function publishDrafts(Context $context): JsonResponse
     {
         $count = $this->draftManager->publishAllDrafts($context);
@@ -93,9 +85,7 @@ class AiImportController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/api/_action/ai-assistant/drafts", name="api.action.ai_assistant.drafts", methods={"GET"})
-     */
+    #[Route(path: '/api/_action/ai-assistant/drafts', name: 'api.action.ai_assistant.drafts', methods: ['GET'])]
     public function getDrafts(Context $context): JsonResponse
     {
         $drafts = $this->draftManager->getDraftProducts($context);
@@ -117,9 +107,7 @@ class AiImportController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/api/_action/ai-assistant/delete-draft/{id}", name="api.action.ai_assistant.delete_draft", methods={"DELETE"})
-     */
+    #[Route(path: '/api/_action/ai-assistant/delete-draft/{id}', name: 'api.action.ai_assistant.delete_draft', methods: ['DELETE'])]
     public function deleteDraft(string $id, Context $context): JsonResponse
     {
         $this->draftManager->deleteDraft($id, $context);
