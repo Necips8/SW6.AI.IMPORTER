@@ -1,8 +1,11 @@
-ein plugin für shopware 6 dass basierend auf einer produktliste im json format alle notwendigen tabellen befüllt.
+Ein Plugin für Shopware 6, das auf Basis einer Produktliste im JSON-Format automatisch alle erforderlichen Datenbanktabellen befüllt.
 
-z.B. JSON { "produktname": "iPad 1" }
+Beispiel:
 
-die ki kennt die Beschreibung des Geräts, ihre Attribute, ihre Hersteller, ihre aktuellen Preise usw. und erstellt daraus Datensätze, die die Attribute, hersteller, produktbeschreibung usw. füllt.
+```json
+{ "produktname": "iPad 1" }
+```
 
+Die integrierte KI erkennt anhand des Produktnamens relevante Informationen wie Produktbeschreibung, Attribute, Hersteller, technische Daten sowie aktuelle Marktpreise. Auf dieser Grundlage generiert sie strukturierte Datensätze und füllt damit automatisch die entsprechenden Bereiche im Shop, darunter Attribute, Herstellerinformationen und Produktbeschreibungen.
 
-verwende ollama zunächst als ki.
+Als KI-Engine wird zunächst Ollama eingesetzt.
